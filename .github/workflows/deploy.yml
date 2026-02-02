@@ -8,13 +8,24 @@ permissions:
   pages: write       # 允許寫入 GitHub Pages
   id-token: write    # 這是關鍵：允許獲取 OIDC 權杖以驗證部署身分
 jobs:
-  build_and_deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: 'npm' }
       - run: npm install && npm run build
-      - uses: actions/upload-pages-artifact@v3
-        with: { path: ./dist }
-      - uses: actions/deploy-pages@v4
+      # 確保這個上傳步驟在整個 YAML 中「只出現一次」
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build # 確保 deploy 在 build 之後執行
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # 它會自動去找上面那個 github-pages 包裹
