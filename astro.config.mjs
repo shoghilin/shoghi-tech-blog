@@ -17,7 +17,8 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
 export default defineConfig({
-	site: 'https://your-domain.com', // 記得換成您的網域
+	site: 'https://blog.shoghilin.com',
+	base: '/',
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		remarkPlugins: [remarkMath],
