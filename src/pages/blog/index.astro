@@ -9,7 +9,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 // 修改點：加入過濾邏輯，只保留繁體中文 (index.md)
 const posts = (await getCollection('blog'))
-	.filter((post) => !post.id.includes('.en') && !post.id.includes('.ja'))
+	.filter((post) => !post.id.includes('en') && !post.id.includes('ja'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
