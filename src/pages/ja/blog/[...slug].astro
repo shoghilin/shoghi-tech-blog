@@ -1,15 +1,14 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import BlogPost from '../../../layouts/BlogPost.astro'; 
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
-	// 篩選：排除英文與日文檔案
 	return posts
-		.filter((post) => !post.id.includes('.en') && !post.id.includes('.ja'))
+		.filter((post) => post.id.endsWith('indexja'))
 		.map((post) => ({
-			// 將 "my-post/index" 轉換為 "my-post"
-			params: { slug: post.id.replace('/index', '') },
+			// 將 my-first-post/indexen 轉為 my-first-post
+			params: { slug: post.id.replace('/indexja', '') },
 			props: post,
 		}));
 }

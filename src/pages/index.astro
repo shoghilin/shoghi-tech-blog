@@ -1,47 +1,58 @@
 ---
+import { getCollection } from 'astro:content';
+// 路徑修正：相對於 src 目錄只需退回一層
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+// 取得最新 3 篇繁體中文文章的邏輯
+const latestPosts = (await getCollection('blog'))
+	.filter((post) => !post.id.includes('indexen') && !post.id.includes('indexja'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-tw">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`${SITE_TITLE} | 繁體中文`} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
+			<h1>🚀 AI & 雲端架構實驗室</h1>
 			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
+				歡迎來到我的技術空間。我目前定居於東京，擔任雲端架構工程師，
+				專注於 <strong>AWS (EKS, CDK)</strong> 運維與 <strong>LLM 落地實作 (Dify)</strong>。
+				這裡記錄了我如何構建可擴展、具備 AI 原生能力的系統架構。
 			</p>
+			
 			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
+				畢業於<strong>早稻田大學</strong> AI 研究所，我致力於彌合尖端學術研究與大規模生產環境之間的鴻溝。
 			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
+
+			<hr />
+
+			<h2>最新技術文章</h2>
+			{latestPosts.length > 0 ? (
+				<ul>
+					{latestPosts.map((post) => (
+						<li>
+							<a href={`/blog/${post.id.replace('/index', '')}/`}>
+								{post.data.title}
+							</a>
+							<span> - {post.data.pubDate.toLocaleDateString('zh-TW')}</span>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p>文章準備中...</p>
+			)}
+			
 			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
+				想了解更多？歡迎查看我的 <a href="/about">關於我</a> 或 
+				瀏覽完整的 <a href="/blog">文章列表</a>。
 			</p>
 		</main>
 		<Footer />

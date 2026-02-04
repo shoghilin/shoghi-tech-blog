@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
+
+const allPosts = await getCollection('blog');
+
+// 除錯用：這會在你的終端機 (WSL Terminal) 印出目前所有文章的 ID
+// console.log("All Post IDs:", allPosts.map(p => p.id));
+
+const posts = (await getCollection('blog'))
+	// 修改點：比對 indexen 而非 .en
+	.filter((post) => post.id.endsWith('indexen')) 
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			/* ... 你原本的 CSS ... */
+			main { width: 960px; }
+			ul { display: flex; flex-wrap: wrap; gap: 2rem; list-style-type: none; margin: 0; padding: 0; }
+			ul li { width: calc(50% - 1rem); }
+			.title { margin: 0; color: rgb(var(--black)); line-height: 1; }
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				{posts.length > 0 ? (
+					<ul>
+						{posts.map((post) => (
+							<li>
+								<a href={`/en/blog/${post.id.replace('/indexen', '')}/`}>
+									{post.data.heroImage && (
+										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+									)}
+									<h4 class="title">{post.data.title}</h4>
+									<p class="date">
+										<FormattedDate date={post.data.pubDate} />
+									</p>
+								</a>
+							</li>
+						))}
+					</ul>
+				) : (
+					<p>No English posts found. (Current IDs: {allPosts.map(p => p.id).join(', ')})</p>
+				)}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

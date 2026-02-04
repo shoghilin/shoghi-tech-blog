@@ -1,63 +1,40 @@
 ---
+// 路徑修正：相對於 src 目錄只需退回一層
 import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
 import Layout from '../layouts/BlogPost.astro';
 ---
 
 <Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
+    title="關於我"
+    description="定居東京的雲端架構工程師與 AI 專家 | 早稻田大學 AI 碩士"
+    pubDate={new Date('February 03 2026')}
+    heroImage={AboutHeroImage}
 >
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+    <h2>個人簡介</h2>
+    <p>
+        我是 <strong>Shoghi Lin (林柏宇)</strong>，目前定居於日本東京，擔任 LLM 工程師。
+        畢業於<strong>早稻田大學</strong>人工智慧（AI）研究所，我的專業核心在於結合尖端的 AI 研究與可擴展的雲端系統架構。
+    </p>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+    <h2>專業領域與技術棧</h2>
+    <p>
+        在日常工作中，我專注於在 <strong>AWS</strong> 環境上構建自動化的維運體系，特別擅長使用 <strong>EKS (Kubernetes)</strong>、<strong>CDK</strong> 與 <strong>Lambda</strong> 進行資源優化與部署。
+        目前，我也深耕於 <strong>Dify</strong> 的技術導入與支援，致力於解決大型語言模型（LLM）從理論走向生產環境的各種挑戰。
+    </p>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+    <h2>技術願景與目標</h2>
+    <p>
+        身為雲端原生技術的實踐者，我熱衷於持續學習。目前正沿著 AWS 認證藍圖前進，最終目標是取得 <strong>Solutions Architect Professional (SAP)</strong> 專家認證。
+        建立這個部落格的初衷，是希望能將我在雲端運算與 AI 實作中的觀察與心得記錄下來，與技術社群共同交流進步。
+    </p>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+    <h2>工作之外的生活</h2>
+    <p>
+        我留在日本發展的一大動力來自對流行音樂的熱愛。工作之餘，我頻繁出沒於各類<strong>演唱會</strong>現場，沉浸在現場演出的能量中。
+        同時，我對聲音技術也感到好奇，目前正透過<strong>歌唱課</strong>學習人聲的結構與表現力，這是我探索「技術與藝術交會點」的另一種方式。
+    </p>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
+    <blockquote>
+        「用雲端基礎設施，賦予人工智慧更強大的落地能力。」
+    </blockquote>
 </Layout>

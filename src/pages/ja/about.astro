@@ -1,0 +1,40 @@
+---
+// 修正路徑：相對於 src 目錄退回三層
+import AboutHeroImage from '../../assets/blog-placeholder-about.jpg';
+import Layout from '../../layouts/BlogPost.astro';
+---
+
+<Layout
+    title="自己紹介"
+    description="東京を拠点に活動するクラウドインフラエンジニア / AIスペシャリスト"
+    pubDate={new Date('February 03 2026')}
+    heroImage={AboutHeroImage}
+>
+    <h2>プロフィール</h2>
+    <p>
+        <strong>Shoghi Lin</strong>（日本での登録名：リン・ボユ）と申します。現在、東京を拠点に活動しているクラウドインフラエンジニアです。
+        <strong>早稲田大学大学院</strong>にてAI（人工知能）の研究で修士号を取得し、現在は最新のAI技術とスケーラブルなクラウドインフラの融合に注力しています。
+    </p>
+
+    <h2>専門領域と技術スタック</h2>
+    <p>
+        日々の業務では、<strong>AWS</strong>を活用したインフラ構築・運用に従事しています。特に<strong>EKS (Kubernetes)</strong>、<strong>CDK</strong>、<strong>Lambda</strong>を用いた自動化やコスト最適化を得意としています。
+        また、<strong>Dify</strong>の技術支援や導入にも深く関わっており、LLM（大規模言語モデル）の理論をいかに実用的なプロダクトへと落とし込むかを常に追求しています。
+    </p>
+
+    <h2>キャリアの目標</h2>
+    <p>
+        エンジニアとして常に成長を続けるため、AWS認定資格の取得に励んでいます（SAA取得済み、現在は<strong>Solutions Architect Professional (SAP)</strong>を目指しています）。
+        このブログを通じて、クラウドエンジニアリングやAI実装に関する知見を共有し、技術コミュニティに貢献することを目指しています。
+    </p>
+
+    <h2>ライフスタイル</h2>
+    <p>
+        私が日本に住むことを選んだ大きな理由の一つは、日本の音楽シーン、特にライブ文化にあります。
+        週末は<strong>コンサート</strong>に足を運ぶことが多く、自分自身も<strong>ボイストレーニング</strong>に通い、声の仕組みや音楽表現の奥深さを学んでいます。
+    </p>
+
+    <blockquote>
+        "インフラの力で、AIの可能性を最大限に引き出す。"
+    </blockquote>
+</Layout>

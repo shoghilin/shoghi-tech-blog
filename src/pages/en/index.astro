@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+// 修正點 1：路徑多退一層 ../ 來到達 src 目錄
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+// 修正點 2：取得最新 3 篇英文文章的邏輯
+const latestPosts = (await getCollection('blog'))
+	.filter((post) => post.id.endsWith('indexen'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`${SITE_TITLE} | EN`} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>🚀 AI & Cloud Infrastructure Insights</h1>
+			<p>
+				Welcome to my technical lab. I am a Cloud Infrastructure Engineer based in Tokyo, 
+				specializing in <strong>AWS (EKS, CDK)</strong> and <strong>LLM implementation (Dify)</strong>. 
+				This blog is where I document my journey in building scalable, AI-native infrastructure.
+			</p>
+			
+			<p>
+				As an AI Master graduate from <strong>Waseda University</strong>, I strive to bridge 
+				the gap between cutting-edge research and production-grade system architecture.
+			</p>
+
+			<hr />
+
+			<h2>Latest English Posts</h2>
+			{latestPosts.length > 0 ? (
+				<ul>
+					{latestPosts.map((post) => (
+						<li>
+							<a href={`/en/blog/${post.id.replace('/indexen', '')}/`}>
+								{post.data.title}
+							</a>
+							<span> - {post.data.pubDate.toLocaleDateString()}</span>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p>Coming soon...</p>
+			)}
+			
+			<p>
+				Want to know more? Check out my <a href="/en/about">About Me</a> page or 
+				browse the full <a href="/en/blog">Blog Archive</a>.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>

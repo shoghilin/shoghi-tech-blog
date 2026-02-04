@@ -1,0 +1,59 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+// 取得最新 3 篇日文文章的邏輯
+const latestPosts = (await getCollection('blog'))
+	.filter((post) => post.id.endsWith('indexja'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<BaseHead title={`${SITE_TITLE} | 日本語`} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>🚀 AI & クラウドインフラ・ラボ</h1>
+			<p>
+				私の技術ブログへようこそ。東京を拠点に活動しているクラウドインフラエンジニアです。
+				<strong>AWS (EKS, CDK)</strong> の構築運用や、<strong>Dify</strong> を活用した LLM 実装に関する知見を共有しています。
+				スケーラブルで AI ネイティブなシステムアーキテクチャの構築を目指しています。
+			</p>
+			
+			<p>
+				<strong>早稲田大学大学院</strong>で AI を専攻し、現在は最先端の研究成果を大規模なプロダクション環境へ適応させることに注力しています。
+			</p>
+
+			<hr />
+
+			<h2>最新の技術記事</h2>
+			{latestPosts.length > 0 ? (
+				<ul>
+					{latestPosts.map((post) => (
+						<li>
+							<a href={`/ja/blog/${post.id.replace('/indexja', '')}/`}>
+								{post.data.title}
+							</a>
+							<span> - {post.data.pubDate.toLocaleDateString('ja-JP')}</span>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p>記事を準備中です...</p>
+			)}
+			
+			<p>
+				詳細については <a href="/ja/about">自己紹介</a> ページをご覧いただくか、
+				<a href="/ja/blog">ブログ一覧</a> をご確認ください。
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
