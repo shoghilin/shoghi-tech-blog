@@ -1,16 +1,36 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+import LanguagePicker from './LanguagePicker.astro'; // 引入組件
+
+// 取得當前路徑來判斷語系
+const { pathname } = Astro.url;
+const segments = pathname.split('/').filter(Boolean);
+const currentLang = ['en', 'ja'].includes(segments[0]) ? segments[0] : '';
+
+// 產生帶有語系前綴的連結工具
+const langPath = (path: string) => {
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  return currentLang ? `/${currentLang}${cleanPath === '/' ? '' : cleanPath}` : cleanPath;
+};
 ---
 
 <header>
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
+		<!-- <div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
+		</div> -->
+		<div class="internal-links">
+			<HeaderLink href={langPath('/')}>Home</HeaderLink>
+			<HeaderLink href={langPath('/blog')}>Blog</HeaderLink>
+			<HeaderLink href={langPath('/about')}>About</HeaderLink>
 		</div>
+
+		<LanguagePicker />
+
 		<div class="social-links">
 			<a href="https://m.webtoo.ls/@astro" target="_blank">
 				<span class="sr-only">Follow Astro on Mastodon</span>

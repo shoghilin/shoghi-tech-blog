@@ -4,14 +4,23 @@ import type { HTMLAttributes } from 'astro/types';
 type Props = HTMLAttributes<'a'>;
 
 const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
-const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+const { pathname } = Astro.url;
+
+// 邏輯優化：
+// 1. 處理字串化路徑
+const subPath = pathname.match(/[^\/]+/g);
+// 2. 判斷是否為 Active
+//    - 如果是首頁，需精確匹配 (避免 /en/ 匹配到所有頁面)
+//    - 如果是其他頁面 (如 /blog)，則判斷 pathname 是否以該 href 開頭
+const isActive = href === pathname || href === pathname.replace(/\/$/, '') || (
+	href !== '/' && href !== '/en' && href !== '/ja' && pathname.startsWith(href as string)
+);
 ---
 
 <a href={href} class:list={[className, { active: isActive }]} {...props}>
 	<slot />
 </a>
+
 <style>
 	a {
 		display: inline-block;
@@ -20,5 +29,6 @@ const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
 	a.active {
 		font-weight: bolder;
 		text-decoration: underline;
+		color: var(--accent); /* 這就是你看到的藍線顏色 */
 	}
 </style>

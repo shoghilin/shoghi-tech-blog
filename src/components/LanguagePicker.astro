@@ -1,0 +1,44 @@
+---
+// 定義支援的語言名稱
+const languages = {
+  'zh-tw': '繁中',
+  'en': 'EN',
+  'ja': '日本語'
+};
+
+const { pathname } = Astro.url;
+
+// 邏輯：根據當前路徑計算切換目標
+// 例如：/blog/post -> /en/blog/post
+const getTargetUrl = (lang: string) => {
+  const segments = pathname.split('/').filter(Boolean);
+  const currentLang = ['en', 'ja'].includes(segments[0]) ? segments[0] : 'zh-tw';
+  
+  if (lang === currentLang) return pathname;
+
+  // 移除現有的語言前綴
+  const baseSegments = currentLang === 'zh-tw' ? segments : segments.slice(1);
+  
+  // 組合新路徑
+  return lang === 'zh-tw' 
+    ? `/${baseSegments.join('/')}` 
+    : `/${lang}/${baseSegments.join('/')}`;
+};
+---
+
+<div class="lang-picker">
+  {Object.entries(languages).map(([code, label]) => (
+    <a 
+      href={getTargetUrl(code)} 
+      class={pathname.includes(`/${code}/`) || (code === 'zh-tw' && !pathname.includes('/en/') && !pathname.includes('/ja/')) ? 'active' : ''}
+    >
+      {label}
+    </a>
+  ))}
+</div>
+
+<style>
+  .lang-picker { display: flex; gap: 0.5rem; margin-right: 1rem; font-size: 0.9rem; }
+  .lang-picker a { text-decoration: none; color: #666; padding: 0.2rem 0.5rem; border-radius: 4px; }
+  .lang-picker a.active { background: #eee; color: #000; font-weight: bold; }
+</style>
