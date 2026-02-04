@@ -20,6 +20,13 @@ export default defineConfig({
 	site: 'https://blog.shoghilin.com',
 	base: '/',
 	integrations: [mdx(), sitemap()],
+	i18n: {
+		defaultLocale: 'zh-tw',
+		locales: ['zh-tw', 'en', 'ja'],
+		routing: {
+		prefixDefaultLocale: false, // 預設語言不加前綴，保持原有連結
+		},
+  	},
 	markdown: {
 		remarkPlugins: [remarkMath],
 		rehypePlugins: [
